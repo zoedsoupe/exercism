@@ -1,14 +1,7 @@
-def to_rna(dna_strand: str) -> str:
-    dna_strand.split()
-    print(dna_strand)
-    for nuc in dna_strand:
-        if nuc == "G":
-            nuc = "C"
-        elif nuc == "C":
-            nuc = "G"
-        elif nuc == "T":
-            nuc = "A"
-        elif nuc == "A":
-            nuc = "U"
+def to_rna(dna: str) -> str:
+    """  transcribe a DNA string to RNA and return as another string """
+    translate_table = dna.maketrans('GCTA', 'CGAU')
 
-    return dna_strand
+    rna = dna.translate(translate_table)
+
+    return(rna)
