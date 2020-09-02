@@ -44,8 +44,10 @@ export default class Triangle {
         return "equilateral";
       case 2:
         return "isosceles";
+      case 1:
+        return "scalene";
     }
 
-    return "scalene";
+    throw new Error("That's not a triangle!");
   }
 }
