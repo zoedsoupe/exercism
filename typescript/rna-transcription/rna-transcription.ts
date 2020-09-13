@@ -8,7 +8,9 @@ type KeysValues = {
 type Strand = readonly DNA_Nucleotides[];
 
 const include = (strand: Strand): boolean => {
-  const includes = strand.map((nuc) => /[GCTA]/gi.test(nuc));
+  const includes = strand.map((nuc) =>
+    /[GCTA]/gi.test(nuc)
+  );
 
   return includes.some((bool) => bool === false) ? false : true;
 };
@@ -26,9 +28,7 @@ const replace = (strand: readonly DNA_Nucleotides[]): string => {
   return strand.map((nuc) => KEYS[nuc]).join('');
 };
 
-const toRNA = (DNA: string): string | { readonly error: string } =>
-  include(sToArr(DNA)) ? replace(sToArr(DNA)) : { error: 'Invalid input DNA.' };
-
-toRNA('U');
+const toRNA = (DNA: string): string =>
+  include(sToArr(DNA)) ? replace(sToArr(DNA)) : 'Invalid input DNA.';
 
 export { toRNA };
