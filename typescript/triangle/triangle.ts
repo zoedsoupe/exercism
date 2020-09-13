@@ -1,53 +1,23 @@
-export default class Triangle {
-  sides: number[];
+const strictEqualSides = (x: readonly number[]): number => new Set(x).size;
 
-  constructor(...sides: number[]) {
-    this.sides = sides;
-  }
+const sum = (x: readonly number[]): boolean => {
+  const [a, b, c] = x.slice().sort((a, b) => a - b);
 
-  private checkInequality(): void {
-    const sumOfSides = this.sides.reduce((acc, side) => {
-      return acc + side;
-    }, 0);
+  return a + b > c;
+};
 
-    const inequality = this.sides.filter((side) => {
-      return side > sumOfSides - side;
-    });
+const checkSides = (x: readonly number[]): boolean =>
+  x.some((side) => side <= 0);
 
-    if (inequality.length > 0) throw new Error("Violate triangle inequality");
-  }
+const isTriangle = (x: readonly number[]): boolean => !checkSides(x) && sum(x);
 
-  private validateSides(): void {
-    if (this.sides.some((side) => side <= 0) || this.sides.length !== 3)
-      throw new Error("Not a triangle");
-  }
+export const whichTriangle = (x: readonly number[]): string => {
+  if (!isTriangle(x)) return "That's not a triangle!";
 
-  private matchingSides(): number {
-    let matchingSides = 1;
-    let prev;
+  const equalSides = strictEqualSides(x);
 
-    for (const side of this.sides) {
-      if (side === prev) matchingSides++;
-      prev = side;
-    }
-
-    return matchingSides;
-  }
-
-  kind(): string {
-    this.sides.sort();
-    this.validateSides();
-    this.checkInequality();
-
-    switch (this.matchingSides()) {
-      case 3:
-        return "equilateral";
-      case 2:
-        return "isosceles";
-      case 1:
-        return "scalene";
-    }
-
-    throw new Error("That's not a triangle!");
-  }
-}
+  if (equalSides === 1) return 'equilateral';
+  else if (equalSides === 2) return 'isosceles';
+  else if (equalSides === 3) return 'scalene';
+  else return "That's not a triangle!";
+};
