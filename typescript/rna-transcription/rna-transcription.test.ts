@@ -22,16 +22,14 @@ describe('Transcriptor', () => {
   });
 
   it('correctly handles invalid input', () => {
-    expect(() => toRNA('U')).toEqual({ error: 'Invalid input DNA.' });
+    expect(toRNA('U')).toEqual('Invalid input DNA.');
   });
 
   it('correctly handles completely invalid input', () => {
-    expect(() => toRNA('XXX')).toEqual({ error: 'Invalid input DNA.' });
+    expect(toRNA('XXX')).toEqual('Invalid input DNA.');
   });
 
   it('correctly handles partially invalid input', () => {
-    expect(() => toRNA('ACGTXXXCTTAA')).toEqual({
-      error: 'Invalid input DNA.',
-    });
+    expect(toRNA('ACGTXXXCTTAA')).toEqual('Invalid input DNA.');
   });
 });
