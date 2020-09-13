@@ -1,51 +1,45 @@
-import Squares from "./difference-of-squares";
+import { squareOfSum, sumOfSquares, difference } from './difference-of-squares';
 
-describe("Squares", () => {
-  describe("up to 5", () => {
-    const squares = new Squares(5);
-
-    it("gets the square of sum", () => {
-      expect(squares.squareOfSum).toBe(225);
+describe('Squares', () => {
+  describe('up to 5', () => {
+    it('gets the square of sum', () => {
+      expect(squareOfSum(5)).toBe(225);
     });
 
-    it("gets the sum of squares", () => {
-      expect(squares.sumOfSquares).toBe(55);
+    it('gets the sum of squares', () => {
+      expect(sumOfSquares(5)).toBe(55);
     });
 
-    it("gets the difference", () => {
-      expect(squares.difference).toBe(170);
+    it('gets the difference', () => {
+      expect(difference(5)).toBe(170);
     });
   });
 
-  describe("up to 10", () => {
-    const squares = new Squares(10);
-
-    it("gets the square of sum", () => {
-      expect(squares.squareOfSum).toBe(3025);
+  describe('up to 10', () => {
+    it('gets the square of sum', () => {
+      expect(squareOfSum(10)).toBe(3025);
     });
 
-    it("gets the sum of squares", () => {
-      expect(squares.sumOfSquares).toBe(385);
+    it('gets the sum of squares', () => {
+      expect(sumOfSquares(10)).toBe(385);
     });
 
-    it("gets the difference", () => {
-      expect(squares.difference).toBe(2640);
+    it('gets the difference', () => {
+      expect(difference(10)).toBe(2640);
     });
   });
 
-  describe("up to 100", () => {
-    const squares = new Squares(100);
-
-    it("gets the square of sum", () => {
-      expect(squares.squareOfSum).toBe(25502500);
+  describe('up to 100', () => {
+    it('gets the square of sum', () => {
+      expect(squareOfSum(100)).toBe(25502500);
     });
 
-    it("gets the sum of squares", () => {
-      expect(squares.sumOfSquares).toBe(338350);
+    it('gets the sum of squares', () => {
+      expect(sumOfSquares(100)).toBe(338350);
     });
 
-    it("gets the difference", () => {
-      expect(squares.difference).toBe(25164150);
+    it('gets the difference', () => {
+      expect(difference(100)).toBe(25164150);
     });
   });
 });

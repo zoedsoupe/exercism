@@ -1,33 +1,18 @@
-class Squares {
-  private value: number;
+const range = (min: number, max: number, step = 1): readonly number[] =>
+  Array.from([...Array(max).keys()], (_, i) => i + min).filter(
+    (_, i) => i % step === 0
+  );
 
-  constructor(squares: number) {
-    this.value = squares;
-  }
+const square = (x: number): number => x ** 2;
 
-  get squareOfSum(): number {
-    let sum = 0;
+const squares = (x: readonly number[]): readonly number[] => x.map(square);
 
-    for (let i = 1; i <= this.value; i++) {
-      sum += i;
-    }
+const sum = (nums: readonly number[]): number =>
+  nums.reduce((acc, num) => acc + num, 0);
 
-    return Math.pow(sum, 2);
-  }
+export const squareOfSum = (x: number): number => square(sum(range(1, x)));
 
-  get sumOfSquares(): number {
-    const squares = [];
+export const sumOfSquares = (x: number): number => sum(squares(range(1, x)));
 
-    for (let i = 1; i <= this.value; i++) {
-      squares.push(Math.pow(i, 2));
-    }
-
-    return squares.reduce((acc, square) => acc + square);
-  }
-
-  get difference(): number {
-    return this.squareOfSum - this.sumOfSquares;
-  }
-}
-
-export default Squares;
+export const difference = (x: number): number =>
+  squareOfSum(x) - sumOfSquares(x);
