@@ -17,13 +17,16 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:functional/external-recommended",
+    "plugin:functional/recommended"
   ],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
   },
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "functional"
   ],
   "rules": {
     "@typescript-eslint/array-type": "off", // Styling not forced upon the student
