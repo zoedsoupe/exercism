@@ -1,26 +1,34 @@
-type Nucleotides = "A" | "C" | "T" | "G" | "U";
+type RNA_Nucleotides = 'A' | 'C' | 'T' | 'G' | 'U';
+type DNA_Nucleotides = 'A' | 'C' | 'T' | 'G';
 
 type KeysValues = {
-  [key: string]: Nucleotides;
+  readonly [key in DNA_Nucleotides]: RNA_Nucleotides;
 };
 
-class Transcriptor {
-  private readonly KEYS: KeysValues = {
-    G: "C",
-    C: "G",
-    T: "A",
-    A: "U",
+type Strand = readonly DNA_Nucleotides[];
+
+const include = (strand: Strand): boolean => {
+  const includes = strand.map((nuc) => /[GCTA]/gi.test(nuc));
+
+  return includes.some((bool) => bool === false) ? false : true;
+};
+
+const sToArr = (s: string): Strand => s.split('') as Strand;
+
+const replace = (strand: readonly DNA_Nucleotides[]): string => {
+  const KEYS: Readonly<KeysValues> = {
+    G: 'C',
+    C: 'G',
+    T: 'A',
+    A: 'U',
   };
 
-  toRna(DNAstrand: string): string {
-    const doNotInclude = /[BD-FH-I-SU-Z]/gi;
-    const include = /[GCTA]/gi;
+  return strand.map((nuc) => KEYS[nuc]).join('');
+};
 
-    if (DNAstrand.match(doNotInclude) || !DNAstrand.match(include))
-      throw new Error("Invalid input DNA.");
+const toRNA = (DNA: string): string | { readonly error: string } =>
+  include(sToArr(DNA)) ? replace(sToArr(DNA)) : { error: 'Invalid input DNA.' };
 
-    return DNAstrand.replace(include, (char) => this.KEYS[char]);
-  }
-}
+toRNA('U');
 
-export default Transcriptor;
+export { toRNA };
