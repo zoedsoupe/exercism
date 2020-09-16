@@ -2,10 +2,12 @@ strict_equal_sides = x -> length(Set(x))
 
 sum = x -> begin a, b, c = sort(x); a + b > c end
 
-zero_side = x -> count(>(0), x) < 3 ? true : false
+check_sides = x -> count(>=(0), x) < 3 ? false : true
+
+is_triangle = x -> check_sides(x) && sum(x)
 
 function is_equilateral(sides)
-    if zero_side(sides) || !sum(sides)
+    if !is_triangle(sides)
         return false
     end
 
@@ -17,7 +19,7 @@ function is_equilateral(sides)
 end
 
 function is_isosceles(sides)
-    if zero_side(sides) || !sum(sides)
+    if !is_triangle(sides)
         return false
     end
 
@@ -31,7 +33,7 @@ function is_isosceles(sides)
 end
 
 function is_scalene(sides)
-    if zero_side(sides) || !sum(sides)
+    if !is_triangle(sides)
         return false
     end
 
